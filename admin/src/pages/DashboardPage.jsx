@@ -6,7 +6,7 @@ import {
     UserOutlined,
     VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Avatar, Button, Col, Layout, Menu, Row, theme } from "antd";
 import styles from "./DashboardPage.module.scss";
 
 const { Header, Sider, Content } = Layout;
@@ -46,22 +46,30 @@ function DashboardPage() {
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: colorBgContainer }}>
-                    <Button
-                        type="text"
-                        icon={
-                            collapsed ? (
-                                <MenuUnfoldOutlined />
-                            ) : (
-                                <MenuFoldOutlined />
-                            )
-                        }
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                            fontSize: "16px",
-                            width: 64,
-                            height: 64,
-                        }}
-                    />
+                    <Row>
+                        <Col span={18}>
+                            <Button
+                                type="text"
+                                icon={
+                                    collapsed ? (
+                                        <MenuUnfoldOutlined />
+                                    ) : (
+                                        <MenuFoldOutlined />
+                                    )
+                                }
+                                onClick={() => setCollapsed(!collapsed)}
+                                style={{
+                                    fontSize: "16px",
+                                    width: 64,
+                                    height: 64,
+                                }}
+                            />
+                        </Col>
+                        <Col span={6}>
+                            <Avatar size="default" icon={<UserOutlined />} />
+                            <span>Nguyen Tien Tao</span>
+                        </Col>
+                    </Row>
                 </Header>
                 <Content
                     className={styles.content}
