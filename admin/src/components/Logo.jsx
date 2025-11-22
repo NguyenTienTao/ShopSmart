@@ -1,12 +1,20 @@
 import logo from "../assets/icons/logo.svg";
 
-function Logo() {
+function Logo({ collapsed = false }) {
     return (
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <div
+            style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+            }}
+        >
             <img src={logo} alt="Logo" />
-            <span style={{ fontSize: "2.2rem", fontWeight: "bold" }}>
-                ShopSmart
-            </span>
+            {!collapsed && (
+                <span style={{ fontSize: "2.6rem", fontWeight: "bold" }}>
+                    ShopSmart
+                </span>
+            )}
         </div>
     );
 }

@@ -2,27 +2,10 @@ import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { supabase } from "../../services/supabaseClient";
 import { Spin } from "antd";
+import { useSelector } from "react-redux";
 
 const PrivateRoute = () => {
-    const [session, setSession] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        // 1. Lấy session hiện tại
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session);
-            setLoading(false);
-        });
-
-        // 2. Lắng nghe sự thay đổi (Login/Logout)
-        const {
-            data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
-            setSession(session);
-        });
-
-        return () => subscription.unsubscribe();
-    }, []);
+    const { session, loading } = useSelector((state) => state.auth);
 
     if (loading) {
         return (

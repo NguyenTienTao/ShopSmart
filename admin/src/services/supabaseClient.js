@@ -9,4 +9,13 @@ if (!supabaseUrl || !supabaseAnonKey) {
     );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+        storage: localStorage,
+        autoRefreshToken: true,
+        persistSession: true,
+
+        // 👇 THÊM DÒNG NÀY ĐỂ CHỐNG TREO KHI F5
+        detectSessionInUrl: false,
+    },
+});

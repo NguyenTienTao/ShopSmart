@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Avatar, Button, Col, Layout, Menu, Row, theme, message } from "antd";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "../../services/supabaseClient";
+import { useSelector } from "react-redux";
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -9,6 +10,10 @@ import {
 } from "@ant-design/icons";
 import { FaChartPie, FaBox, FaList, FaClipboardList } from "react-icons/fa";
 import styles from "./MainLayout.module.scss";
+import { useDispatch } from "react-redux";
+import { setLogout } from "../../store/authSlice.js"; // Import action logout
+import Logo from "../Logo.jsx";
+import { getUserProfile } from "../../helpers/authHelpers.js";
 
 const { Header, Sider, Content } = Layout;
 
@@ -16,6 +21,9 @@ const MainLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
+
+    const { profile } = useSelector((state) => state.auth);
 
     // Ant Design theme token (để lấy màu chuẩn của hệ thống nếu cần)
     const {
@@ -58,6 +66,7 @@ const MainLayout = () => {
             message.error("Lỗi đăng xuất: " + error.message);
         } else {
             message.success("Đã đăng xuất");
+            dispatch(setLogout());
             navigate("/login");
         }
     };
@@ -68,12 +77,7 @@ const MainLayout = () => {
                 <div className="demo-logo-vertical" />
                 <div className={styles.logo}>
                     {/* Ẩn chữ ShopSmart khi thu nhỏ sidebar */}
-                    {!collapsed && (
-                        <>
-                            ShopSmart <span>Admin</span>
-                        </>
-                    )}
-                    {collapsed && <span>SS</span>}
+                    <Logo collapsed={collapsed} />
                 </div>
                 <Menu
                     theme="dark"
@@ -107,7 +111,7 @@ const MainLayout = () => {
                         </Col>
                         <Col span={8}>
                             <Avatar size="default" icon={<UserOutlined />} />
-                            <span>Nguyen Tien Tao</span>
+                            <span>{profile.name}</span>
                             <Button
                                 type="primary"
                                 danger
