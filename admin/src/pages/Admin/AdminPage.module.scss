@@ -1,0 +1,85 @@
+// --- PHẦN HEADER ---
+.pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h2 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #262626;
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+}
+
+// Ô tìm kiếm
+.searchBar {
+    width: 320px;
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+// --- PHẦN BẢNG ---
+.tableCard {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: none;
+
+    :global {
+        .ant-table-thead > tr > th {
+            background-color: #fafafa;
+            font-weight: 600;
+            color: #595959;
+            padding: 16px;
+        }
+        .ant-table-tbody > tr > td {
+            padding: 16px;
+        }
+    }
+}
+
+// --- CÁC CỘT THÔNG TIN ---
+
+// 1. Cột Avatar + Tên
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .name {
+        font-weight: 600;
+        font-size: 14px;
+        color: #262626;
+        margin-bottom: 2px;
+    }
+}
+
+// 2. Cột Liên hệ (Email, Phone)
+.contactInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #595959;
+    font-size: 14px;
+
+    svg {
+        color: #bfbfbf;
+    }
+
+    .empty {
+        font-style: italic;
+        color: #bfbfbf;
+        font-size: 13px;
+    }
+}
+
+// (Đã xóa class .actionBtn vì không dùng nữa)

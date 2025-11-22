@@ -33,8 +33,15 @@ const authSlice = createSlice({
         setLoading: (state, action) => {
             state.loading = action.payload;
         },
+        updateProfile: (state, action) => {
+            // action.payload chứa { name: 'Mới', avatar_url: '...', ... }
+            if (state.profile) {
+                state.profile = { ...state.profile, ...action.payload };
+            }
+        },
     },
 });
 
-export const { setSession, setLogout, setLoading } = authSlice.actions;
+export const { setSession, setLogout, setLoading, updateProfile } =
+    authSlice.actions;
 export default authSlice.reducer;

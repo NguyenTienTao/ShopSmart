@@ -5,10 +5,11 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { supabase } from "./services/supabaseClient.js";
 import { getUserRole, getUserProfile } from "./helpers/authHelpers.js";
 import { setLoading, setSession, setLogout } from "./store/authSlice.js";
-import MainLayout from "./components/layout/MainLayout.jsx";
+import MainLayout from "./layout/MainLayout.jsx";
 import LoginPage from "./pages/Login/LoginPage.jsx";
-import PrivateRoute from "./components/layout/PrivateRoute.jsx";
+import PrivateRoute from "./layout/PrivateRoute.jsx";
 import CategoryPage from "./pages/Category/CategoryPage.jsx";
+import AdminPage from "./pages/Admin/AdminPage.jsx";
 
 const Dashboard = () => <h2>Trang Thống Kê</h2>;
 const Products = () => <h2>Trang Quản Lý Sản Phẩm</h2>;
@@ -19,6 +20,8 @@ function App() {
     useEffect(() => {
         // Kiểm tra session khi load app
         const handleSession = async (session) => {
+            dispatch(setLoading(true));
+
             if (session) {
                 try {
                     const profile = await getUserProfile(session.user.id);
@@ -74,6 +77,7 @@ function App() {
                             path="orders"
                             element={<h2>Trang Đơn Hàng</h2>}
                         />
+                        <Route path="admins" element={<AdminPage />} />
                     </Route>
                 </Route>
 

@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { supabase } from "../../services/supabaseClient";
 import { Spin } from "antd";
 import { useSelector } from "react-redux";
 
