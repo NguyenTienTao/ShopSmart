@@ -10,9 +10,10 @@ import LoginPage from "./pages/Login/LoginPage.jsx";
 import PrivateRoute from "./layout/PrivateRoute.jsx";
 import CategoryPage from "./pages/Category/CategoryPage.jsx";
 import AdminPage from "./pages/Admin/AdminPage.jsx";
+import ProductsPage from "./pages/Product/ProductsPage.jsx";
+import OrdersPage from "./pages/Order/OrdersPage.jsx";
 
 const Dashboard = () => <h2>Trang Thống Kê</h2>;
-const Products = () => <h2>Trang Quản Lý Sản Phẩm</h2>;
 
 function App() {
     const dispatch = useDispatch();
@@ -71,12 +72,9 @@ function App() {
                         />
 
                         <Route path="dashboard" element={<Dashboard />} />
-                        <Route path="products" element={<Products />} />
+                        <Route path="products" element={<ProductsPage />} />
                         <Route path="categories" element={<CategoryPage />} />
-                        <Route
-                            path="orders"
-                            element={<h2>Trang Đơn Hàng</h2>}
-                        />
+                        <Route path="orders" element={<OrdersPage />} />
                         <Route path="admins" element={<AdminPage />} />
                     </Route>
                 </Route>

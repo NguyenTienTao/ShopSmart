@@ -1,0 +1,96 @@
+// Đã XÓA dòng @use ...
+
+.pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    .filters {
+        display: flex;
+        gap: 12px;
+
+        @media (max-width: 768px) {
+            width: 100%;
+            flex-direction: column;
+        }
+    }
+}
+
+.searchBar {
+    width: 300px;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+.categorySelect {
+    width: 200px;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+
+.tableCard {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: none;
+
+    :global {
+        .ant-table-thead > tr > th {
+            background-color: #fafafa;
+            font-weight: 600;
+            color: #595959;
+        }
+    }
+}
+
+// Style cho Thumbnail sản phẩm
+.productThumbnail {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 6px;
+    object-fit: contain;
+    border: 1px solid #f0f0f0;
+    background-color: #fafafa;
+}
+
+// Style cho tên sản phẩm
+.productName {
+    font-weight: 600;
+    color: #262626;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; // Cắt dòng nếu tên quá dài
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.price {
+    font-family: monospace;
+    font-weight: bold;
+    // Thay v.$primary-color bằng màu xanh Ant Design
+    color: #1890ff;
+}
+
+.actionBtn {
+    color: #8c8c8c;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 0 8px;
+    border: none;
+    background: none;
+
+    &:hover {
+        // Thay v.$primary-color
+        color: #1890ff;
+        transform: scale(1.1);
+    }
+
+    &.delete:hover {
+        // Thay v.$error-color bằng màu đỏ Ant Design
+        color: #ff4d4f;
+    }
+}
