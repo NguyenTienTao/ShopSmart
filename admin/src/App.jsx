@@ -12,8 +12,7 @@ import CategoryPage from "./pages/Category/CategoryPage.jsx";
 import AdminPage from "./pages/Admin/AdminPage.jsx";
 import ProductsPage from "./pages/Product/ProductsPage.jsx";
 import OrdersPage from "./pages/Order/OrdersPage.jsx";
-
-const Dashboard = () => <h2>Trang Thống Kê</h2>;
+import DashboardPage from "./pages/Dashboard/DashboardPage.jsx";
 
 function App() {
     const dispatch = useDispatch();
@@ -71,7 +70,7 @@ function App() {
                             element={<Navigate to="/dashboard" replace />}
                         />
 
-                        <Route path="dashboard" element={<Dashboard />} />
+                        <Route path="dashboard" element={<DashboardPage />} />
                         <Route path="products" element={<ProductsPage />} />
                         <Route path="categories" element={<CategoryPage />} />
                         <Route path="orders" element={<OrdersPage />} />

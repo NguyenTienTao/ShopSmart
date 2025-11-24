@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Table, Card, Input, Tag, Avatar, message } from "antd";
 import { FaUserShield, FaSearch, FaPhone, FaEnvelope } from "react-icons/fa";
 import { useSelector } from "react-redux";
@@ -124,8 +124,6 @@ const AdminPage = () => {
                     pagination={{ pageSize: 10 }}
                 />
             </Card>
-
-            {/* Đã XÓA toàn bộ Modal và Form */}
         </div>
     );
 };

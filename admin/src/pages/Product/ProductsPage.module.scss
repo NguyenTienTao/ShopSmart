@@ -1,5 +1,3 @@
-// Đã XÓA dòng @use ...
-
 .pageHeader {
     display: flex;
     justify-content: space-between;
@@ -70,7 +68,6 @@
 .price {
     font-family: monospace;
     font-weight: bold;
-    // Thay v.$primary-color bằng màu xanh Ant Design
     color: #1890ff;
 }
 
@@ -84,13 +81,11 @@
     background: none;
 
     &:hover {
-        // Thay v.$primary-color
         color: #1890ff;
         transform: scale(1.1);
     }
 
     &.delete:hover {
-        // Thay v.$error-color bằng màu đỏ Ant Design
         color: #ff4d4f;
     }
 }

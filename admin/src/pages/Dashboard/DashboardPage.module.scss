@@ -1,0 +1,183 @@
+// src/pages/Dashboard/Dashboard.module.scss
+
+.dashboardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 0 24px 24px 24px;
+}
+
+// 1. Style Thẻ Thống Kê (Stat Card)
+.statCard {
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s;
+    border: 1px solid #f0f0f0;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+
+        .title {
+            color: #8c8c8c;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .value {
+            color: #262626;
+            font-size: 28px; // Số to rõ
+            font-weight: 700;
+            line-height: 1;
+            margin: 0;
+        }
+    }
+
+    .iconBox {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+
+        // Các màu sắc khác nhau
+        &.green {
+            background: #f6ffed;
+            color: #52c41a;
+        }
+        &.blue {
+            background: #e6f7ff;
+            color: #1890ff;
+        }
+        &.gold {
+            background: #fffbe6;
+            color: #faad14;
+        }
+        &.purple {
+            background: #f9f0ff;
+            color: #722ed1;
+        }
+    }
+}
+
+// 2. Khu vực Biểu đồ & Top Sản phẩm
+.chartSection {
+    background: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f0f0f0;
+    height: 100%; // Để nó cao bằng thằng bên cạnh
+
+    h3 {
+        margin-bottom: 24px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #262626;
+    }
+}
+
+// 3. Danh sách Best Seller
+.bestSellerList {
+    .item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px dashed #f0f0f0;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .rank {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                background: #f0f0f0;
+                color: #595959;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 12px;
+
+                &.top1 {
+                    background: #fadb14;
+                    color: #fff;
+                } // Vàng
+                &.top2 {
+                    background: #d9d9d9;
+                    color: #fff;
+                } // Bạc
+                &.top3 {
+                    background: #d48806;
+                    color: #fff;
+                } // Đồng
+            }
+
+            img {
+                width: 48px;
+                height: 48px;
+                border-radius: 6px;
+                object-fit: cover;
+                border: 1px solid #f0f0f0;
+            }
+
+            .name {
+                font-weight: 500;
+                color: #262626;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        }
+
+        .sales {
+            text-align: right;
+            .count {
+                font-weight: 700;
+                color: #1890ff;
+            }
+            .label {
+                font-size: 12px;
+                color: #8c8c8c;
+                display: block;
+            }
+        }
+    }
+}
+
+// 4. Bảng đơn hàng mới
+.recentOrdersCard {
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+
+    :global {
+        .ant-card-head {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .ant-card-head-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+    }
+}
