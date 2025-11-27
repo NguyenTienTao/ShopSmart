@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Row, Col, Table, Tag, Card, Spin, message, Empty } from "antd";
+import { useEffect, useState } from "react";
+import { Row, Col, Table, Button, Tag, Card, Spin, message, Empty } from "antd";
 import { supabase } from "../../services/supabaseClient";
 import styles from "./DashboardPage.module.scss";
+import StatCard from "../../components/StatCard.jsx";
 import { formatCurrency, formatDate } from "../../helpers/formatters";
 
 // Icons
@@ -11,6 +12,8 @@ import {
     FaMoneyBillWave,
     FaBoxOpen,
 } from "react-icons/fa";
+
+import { ReloadOutlined } from "@ant-design/icons";
 
 // Charts
 import {
@@ -205,6 +208,25 @@ const DashboardPage = () => {
 
     return (
         <div className={styles.dashboardContainer}>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: 16,
+                }}
+            >
+                <h2 style={{ margin: 0 }}>Tổng quan</h2>
+
+                <Button
+                    icon={<ReloadOutlined />}
+                    onClick={fetchAllData} // Gọi lại hàm lấy dữ liệu
+                    loading={loading} // Quay vòng tròn khi đang tải
+                >
+                    Làm mới dữ liệu
+                </Button>
+            </div>
+
             {/* 1. THẺ THỐNG KÊ */}
             <Row gutter={[24, 24]}>
                 <Col xs={24} sm={12} lg={6}>
@@ -364,7 +386,7 @@ const DashboardPage = () => {
             {/* 3. ĐƠN HÀNG MỚI */}
             <Card
                 title="Đơn hàng mới nhất"
-                bordered={false}
+                variant={false}
                 className={styles.recentOrdersCard}
             >
                 <Table
@@ -380,16 +402,5 @@ const DashboardPage = () => {
         </div>
     );
 };
-
-// Component con: StatCard
-const StatCard = ({ title, value, icon, color }) => (
-    <div className={styles.statCard}>
-        <div className={styles.content}>
-            <span className={styles.title}>{title}</span>
-            <h4 className={styles.value}>{value}</h4>
-        </div>
-        <div className={`${styles.iconBox} ${styles[color]}`}>{icon}</div>
-    </div>
-);
 
 export default DashboardPage;
