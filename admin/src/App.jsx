@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { supabase } from "./services/supabaseClient.js";
-import { getUserRole, getUserProfile } from "./helpers/authHelpers.js";
+import { getUserProfile } from "./helpers/authHelpers.js";
 import { setLoading, setSession, setLogout } from "./store/authSlice.js";
 import MainLayout from "./layout/MainLayout.jsx";
 import LoginPage from "./pages/Login/LoginPage.jsx";
