@@ -7,6 +7,9 @@
  * @returns {string} Chuỗi đã định dạng
  */
 export const formatCurrency = (amount) => {
+    const vndAmount = Number(amount) * 26372; // Giả sử tỉ giá 1 USD = 25,000 VND
+    amount = vndAmount;
+
     // Nếu không có giá trị hoặc không phải số, trả về 0 đ
     if (amount === undefined || amount === null || isNaN(amount)) {
         return "0 ₫";

@@ -8,32 +8,9 @@ import { setSession, setLogout, setLoading } from "./store/authSlice";
 // Import Layouts
 import MainLayout from "./layouts/MainLayout";
 // import LoginPage from './pages/LoginPage'; // Giả sử bạn đã có file này (copy từ Admin sửa lại chút UI)
+import HomePage from "./pages/HomePage";
+import ProductPage from "./pages/ProductPage";
 
-// --- TRANG GIẢ (Placeholder) ĐỂ TEST GIAO DIỆN ---
-const HomePage = () => (
-    <div className="text-center py-20">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            Chào mừng đến với ShopSmart! 🛍️
-        </h1>
-        <p className="text-gray-600">Săn deal hời, mua sắm thả ga.</p>
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-                <div
-                    key={i}
-                    className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 h-64 flex items-center justify-center text-gray-400"
-                >
-                    Sản phẩm mẫu {i}
-                </div>
-            ))}
-        </div>
-    </div>
-);
-
-const ProductPage = () => (
-    <div className="text-2xl font-bold text-gray-700">
-        Trang Danh sách Sản phẩm
-    </div>
-);
 const CartPage = () => (
     <div className="text-2xl font-bold text-gray-700">
         Giỏ hàng của bạn (Trống)

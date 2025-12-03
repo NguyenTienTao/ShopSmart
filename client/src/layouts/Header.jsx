@@ -10,7 +10,6 @@ import {
     FaUser,
     FaSignOutAlt,
     FaHistory,
-    FaShoppingBag,
 } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import CartBadge from "../components/CartBadge";
@@ -26,7 +25,8 @@ const Header = () => {
     const handleSearch = (e) => {
         e.preventDefault();
         if (searchTerm.trim()) {
-            navigate(`/search?q=${encodeURIComponent(searchTerm)}`);
+            navigate(`/products?q=${encodeURIComponent(searchTerm)}`);
+            setSearchTerm("");
         }
     };
 
@@ -48,23 +48,26 @@ const Header = () => {
 
     return (
         <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
-            <div className="container mx-auto px-4 pb-4 pt-3">
+            <div className="container mx-auto px-4 pb-5 pt-5">
                 {/* --- HÀNG 1: LOGO - MENU - AUTH --- */}
                 <div className="flex items-center justify-between mb-4">
                     {/* 1. Logo & Menu */}
-                    <div className="flex items-center gap-8">
+                    <div className="flex items-center gap-12">
                         {/* Logo */}
                         <Link to="/">
-                            <Logo fontSize="1.7rem" />
+                            <Logo fontSize="1.6rem" />
                         </Link>
 
                         {/* Navigation (Desktop) */}
                         <nav className="hidden md:flex items-center gap-6">
                             <NavLink to="/" className={navLinkClass}>
-                                Home
+                                Trang chủ
                             </NavLink>
                             <NavLink to="/products" className={navLinkClass}>
-                                Categories
+                                Sản phẩm
+                            </NavLink>
+                            <NavLink to="/categories" className={navLinkClass}>
+                                Danh mục
                             </NavLink>
                             {/* History chỉ hiện khi đã đăng nhập (hoặc luôn hiện tùy bạn) */}
                             {user && (
@@ -72,7 +75,7 @@ const Header = () => {
                                     to="/my-orders"
                                     className={navLinkClass}
                                 >
-                                    History
+                                    Lịch sử
                                 </NavLink>
                             )}
                         </nav>
@@ -147,16 +150,16 @@ const Header = () => {
                             // --- CHƯA ĐĂNG NHẬP (Hiện nút Login & Register) ---
                             <div className="flex items-center gap-3">
                                 <Link
-                                    to="/login"
+                                    to="/register"
                                     className="text-primary-600 font-medium hover:underline px-2"
                                 >
-                                    Đăng nhập
+                                    Đăng ký
                                 </Link>
                                 <Link
-                                    to="/register"
-                                    className="bg-primary-500 hover:bg-primary-600 text-white px-5 py-2 rounded-full font-medium shadow-md transition transform hover:-translate-y-0.5"
+                                    to="/login"
+                                    className="bg-primary-500 hover:bg-primary-600 text-white px-5 py-3 rounded-full font-medium shadow-md transition transform hover:-translate-y-0.5"
                                 >
-                                    Đăng ký
+                                    Đăng nhập
                                 </Link>
                             </div>
                         )}
@@ -178,6 +181,7 @@ const Header = () => {
                             className="w-full bg-transparent py-3 px-3 text-gray-700 focus:outline-none placeholder-gray-400"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
+                            style={{ lineHeight: "none" }}
                         />
                         <button
                             type="submit"

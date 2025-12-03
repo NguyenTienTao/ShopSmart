@@ -8,6 +8,7 @@ import {
     FaPhone,
     FaEnvelope,
 } from "react-icons/fa";
+import Logo from "../components/Logo";
 
 const Footer = () => {
     return (
@@ -17,12 +18,7 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                     {/* Cột 1: Thông tin chung */}
                     <div>
-                        <h2 className="text-white text-2xl font-bold mb-4 flex items-center gap-2">
-                            <span className="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm">
-                                S
-                            </span>
-                            ShopSmart
-                        </h2>
+                        <Logo fontSize="1.6rem" textColor="#fff" />
                         <p className="text-sm leading-relaxed mb-4 text-gray-400">
                             Nền tảng mua sắm trực tuyến hàng đầu, mang đến trải
                             nghiệm tiện lợi, an toàn và nhanh chóng.
@@ -140,7 +136,8 @@ const Footer = () => {
                             <li className="flex items-start gap-3">
                                 <FaMapMarkerAlt className="mt-1 text-blue-500" />
                                 <span>
-                                    123 Đường ABC, Quận 1, TP. Hồ Chí Minh
+                                    Đường ABC, Phường XYZ, Quận 123, Thành phố
+                                    Hà Nội
                                 </span>
                             </li>
                             <li className="flex items-center gap-3">

@@ -1,14 +1,17 @@
+/* @import "./assets/styles/reset.css"; */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* @import "./assets/styles/reset.css";
-@import "./assets/styles/base.css"; */
 
 :root {
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+    line-height: 1;
 }
 
 button {
