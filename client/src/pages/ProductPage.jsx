@@ -11,7 +11,7 @@ import {
     FaAngleRight,
     FaRedo,
 } from "react-icons/fa";
-// import { Spin, Empty } from "antd"; // Hoặc dùng UI loading tự chế
+import Pagination from "../components/Pagination";
 
 const ITEMS_PER_PAGE = 12; // 12 sản phẩm (chia hết cho 4 cột)
 
@@ -32,6 +32,8 @@ const ProductPage = () => {
 
     // 1. Lấy danh sách Categories (để làm bộ lọc bên trái)
     useEffect(() => {
+        document.title = "Sản phẩm";
+
         const fetchCategories = async () => {
             const { data } = await supabase.from("categories").select("*");
             setCategories(data || []);
@@ -146,7 +148,7 @@ const ProductPage = () => {
                         sortType !== "newest") && (
                         <button
                             onClick={handleResetFilters}
-                            className="text-sm font-normal text-primary-600 bg-primary-50 hover:bg-primary-100 px-3 py-1 rounded-full flex items-center gap-1 transition-colors"
+                            className="text-sm font-normal text-primary-600 bg-primary-50 hover:bg-primary-100 px-3 py-1 mt-2 mb-2 rounded-full flex items-center gap-1 transition-colors"
                             title="Xóa bộ lọc"
                         >
                             <FaRedo className="text-xs" /> Làm mới
@@ -259,49 +261,12 @@ const ProductPage = () => {
                             </div>
 
                             {/* PHÂN TRANG */}
-                            {totalPages > 1 && (
-                                <div className="mt-12 flex justify-center items-center gap-2">
-                                    <button
-                                        disabled={currentPage === 1}
-                                        onClick={() =>
-                                            handlePageChange(currentPage - 1)
-                                        }
-                                        className="w-10 h-10 flex items-center text-white justify-center rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition"
-                                    >
-                                        <FaAngleLeft className="flex-shrink-0" />
-                                    </button>
-
-                                    {/* Tạo mảng số trang [1, 2, 3...] */}
-                                    {[...Array(totalPages)].map((_, i) => {
-                                        const page = i + 1;
-                                        return (
-                                            <button
-                                                key={page}
-                                                onClick={() =>
-                                                    handlePageChange(page)
-                                                }
-                                                className={`w-10 h-10 flex items-center justify-center rounded-lg font-medium transition ${
-                                                    currentPage === page
-                                                        ? "bg-primary-600 text-white shadow-md"
-                                                        : "bg-white border border-gray-300 hover:bg-gray-50 text-gray-700"
-                                                }`}
-                                            >
-                                                {page}
-                                            </button>
-                                        );
-                                    })}
-
-                                    <button
-                                        disabled={currentPage === totalPages}
-                                        onClick={() =>
-                                            handlePageChange(currentPage + 1)
-                                        }
-                                        className="w-10 h-10 text-white flex items-center justify-center rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition"
-                                    >
-                                        <FaAngleRight className="flex-shrink-0" />
-                                    </button>
-                                </div>
-                            )}
+                            <Pagination
+                                currentPage={currentPage}
+                                totalCount={total}
+                                pageSize={ITEMS_PER_PAGE}
+                                onPageChange={handlePageChange}
+                            />
                         </>
                     ) : (
                         // Empty State

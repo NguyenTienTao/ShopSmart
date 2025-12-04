@@ -19,7 +19,7 @@ const Footer = () => {
                     {/* Cột 1: Thông tin chung */}
                     <div>
                         <Logo fontSize="1.6rem" textColor="#fff" />
-                        <p className="text-sm leading-relaxed mb-4 text-gray-400">
+                        <p className="text-sm leading-relaxed mt-3 mb-4 text-gray-400">
                             Nền tảng mua sắm trực tuyến hàng đầu, mang đến trải
                             nghiệm tiện lợi, an toàn và nhanh chóng.
                         </p>

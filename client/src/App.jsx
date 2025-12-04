@@ -10,6 +10,7 @@ import MainLayout from "./layouts/MainLayout";
 // import LoginPage from './pages/LoginPage'; // Giả sử bạn đã có file này (copy từ Admin sửa lại chút UI)
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
+import CategoryPage from "./pages/CategoryPage";
 
 const CartPage = () => (
     <div className="text-2xl font-bold text-gray-700">
@@ -60,6 +61,7 @@ function App() {
                 <Route path="/" element={<MainLayout />}>
                     <Route index element={<HomePage />} />
                     <Route path="products" element={<ProductPage />} />
+                    <Route path="categories" element={<CategoryPage />} />
                     <Route path="cart" element={<CartPage />} />
                     {/* Thêm các route khác vào đây: /product/:id, /checkout... */}
                 </Route>
