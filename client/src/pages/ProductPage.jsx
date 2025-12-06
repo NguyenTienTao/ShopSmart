@@ -17,7 +17,6 @@ const ITEMS_PER_PAGE = 12; // 12 sản phẩm (chia hết cho 4 cột)
 
 const ProductPage = () => {
     const [products, setProducts] = useState([]);
-    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [total, setTotal] = useState(0);
 
@@ -30,19 +29,10 @@ const ProductPage = () => {
     const searchQuery = searchParams.get("q") || "";
     const selectedCategory = searchParams.get("category") || "all";
 
-    // 1. Lấy danh sách Categories (để làm bộ lọc bên trái)
-    useEffect(() => {
-        document.title = "Sản phẩm";
-
-        const fetchCategories = async () => {
-            const { data } = await supabase.from("categories").select("*");
-            setCategories(data || []);
-        };
-        fetchCategories();
-    }, []);
-
     // 2. Lấy Sản phẩm (Chạy mỗi khi URL thay đổi)
     useEffect(() => {
+        document.title = "Danh sách sản phẩm";
+
         const fetchProducts = async () => {
             setLoading(true);
 

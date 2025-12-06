@@ -4,6 +4,7 @@ const initialState = {
     session: null,
     user: null,
     profile: null, // Lưu tên, sđt, địa chỉ...
+    role: null,
     loading: true,
 };
 
@@ -12,16 +13,18 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setSession: (state, action) => {
-            const { session, profile } = action.payload;
+            const { session, profile, role } = action.payload;
             state.session = session;
             state.user = session?.user || null;
             state.profile = profile || null;
+            state.role = role || "customer";
             state.loading = false;
         },
         setLogout: (state) => {
             state.session = null;
             state.user = null;
             state.profile = null;
+            state.role = null;
             state.loading = false;
         },
         setLoading: (state, action) => {

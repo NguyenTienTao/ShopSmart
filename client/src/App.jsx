@@ -11,6 +11,9 @@ import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import CategoryPage from "./pages/CategoryPage";
+import ProductDetail from "./pages/ProductDetail";
+import LoginPage from "./pages/LoginPage";
+import { getUserProfile } from "./helpers/authHelpers";
 
 const CartPage = () => (
     <div className="text-2xl font-bold text-gray-700">
@@ -23,27 +26,36 @@ function App() {
 
     // Logic Auth giữ nguyên như cũ để đồng bộ session
     useEffect(() => {
-        const initSession = async () => {
+        // Kiểm tra session khi load app
+        const handleSession = async (session) => {
             dispatch(setLoading(true));
-            const {
-                data: { session },
-            } = await supabase.auth.getSession();
+
             if (session) {
-                // Bên Client thường không cần check role gắt gao ngay lúc init,
-                // cứ cho vào đã, trừ khi vào trang profile/admin
-                dispatch(setSession({ session, role: "customer" }));
+                try {
+                    const profile = await getUserProfile(session.user.id);
+
+                    dispatch(
+                        setSession({ session, profile, role: profile.role })
+                    );
+                } catch (err) {
+                    dispatch(setLogout());
+                }
             } else {
                 dispatch(setLogout());
             }
         };
-        initSession();
 
+        // Lắng nghe sự thay đổi session
         const {
             data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
-            if (session) {
-                dispatch(setSession({ session, role: "customer" }));
-            } else {
+        } = supabase.auth.onAuthStateChange(async (event, session) => {
+            if (event === "INITIAL_SESSION") {
+                // Sự kiện này luôn bắn ra khi F5 hoặc mới vào App
+                handleSession(session);
+            } else if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+                // Khi đăng nhập hoặc gia hạn token
+                handleSession(session);
+            } else if (event === "SIGNED_OUT") {
                 dispatch(setLogout());
             }
         });
@@ -63,10 +75,12 @@ function App() {
                     <Route path="products" element={<ProductPage />} />
                     <Route path="categories" element={<CategoryPage />} />
                     <Route path="cart" element={<CartPage />} />
+                    <Route path="product/:id" element={<ProductDetail />} />
                     {/* Thêm các route khác vào đây: /product/:id, /checkout... */}
                 </Route>
 
                 {/* Route Phụ: Không có Header/Footer (như Login) */}
+                <Route path="/login" element={<LoginPage />} />
                 {/* <Route path="/login" element={<LoginPage />} /> */}
                 {/* <Route path="/register" element={<RegisterPage />} /> */}
             </Routes>

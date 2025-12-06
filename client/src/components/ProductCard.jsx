@@ -10,7 +10,10 @@ const ProductCard = ({ product, badge }) => {
         <div className="group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 relative flex flex-col h-full">
             {/* 1. Hình ảnh & Badge */}
             <div className="relative aspect-square overflow-hidden bg-gray-100">
-                <Link to={`/product/${product.id}`}>
+                <Link
+                    to={`/product/${product.id}`}
+                    state={{ productName: product.title }}
+                >
                     <img
                         src={
                             Array.isArray(product.images)
@@ -43,7 +46,11 @@ const ProductCard = ({ product, badge }) => {
                 </div>
 
                 {/* Tên sản phẩm (Cắt dòng nếu dài) */}
-                <Link to={`/product/${product.id}`} className="block">
+                <Link
+                    to={`/product/${product.id}`}
+                    className="block"
+                    state={{ productName: product.title }}
+                >
                     <h3
                         className="text-gray-800 font-semibold mb-2 line-clamp-2 hover:text-primary-600 transition-colors"
                         title={product.title}
