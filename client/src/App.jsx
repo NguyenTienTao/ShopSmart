@@ -7,12 +7,12 @@ import { setSession, setLogout, setLoading } from "./store/authSlice";
 
 // Import Layouts
 import MainLayout from "./layouts/MainLayout";
-// import LoginPage from './pages/LoginPage'; // Giả sử bạn đã có file này (copy từ Admin sửa lại chút UI)
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductDetail from "./pages/ProductDetail";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import { getUserProfile } from "./helpers/authHelpers";
 
 const CartPage = () => (
@@ -81,8 +81,7 @@ function App() {
 
                 {/* Route Phụ: Không có Header/Footer (như Login) */}
                 <Route path="/login" element={<LoginPage />} />
-                {/* <Route path="/login" element={<LoginPage />} /> */}
-                {/* <Route path="/register" element={<RegisterPage />} /> */}
+                <Route path="/register" element={<RegisterPage />} />
             </Routes>
         </BrowserRouter>
     );
