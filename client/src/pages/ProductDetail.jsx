@@ -15,6 +15,7 @@ import FavoriteButton from "../components/FavoriteButton";
 import Loading from "../components/Loading";
 import ProductInfo from "../components/product/ProductInfo";
 import SimilarProducts from "../components/product/SimilarProducts";
+import ReviewSection from "../components/product/ReviewSection";
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -354,9 +355,7 @@ const ProductDetail = () => {
 
                     {/* Placeholder cho các tab chưa làm */}
                     {activeTab === "reviews" && (
-                        <div className="text-center py-10 text-gray-500 animate-fade-in">
-                            <p>Chức năng đánh giá đang được phát triển...</p>
-                        </div>
+                        <ReviewSection productId={product.id} />
                     )}
                     {activeTab === "similar" && (
                         <SimilarProducts

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../services/supabaseClient";
 import {
@@ -23,6 +23,10 @@ const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = "Đăng ký tài khoản";
+    }, []);
 
     // Hàm xử lý nhập liệu chung
     const handleChange = (e) => {

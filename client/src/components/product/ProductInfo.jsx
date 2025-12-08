@@ -3,6 +3,49 @@ import { FaCheckCircle } from "react-icons/fa";
 const ProductInfo = ({ product }) => {
     if (!product) return null;
 
+    const renderDetailValue = (value) => {
+        // 1. Nếu là null hoặc undefined
+        if (value === null || value === undefined) return "---";
+
+        // 2. Nếu là Mảng (Array)
+        if (Array.isArray(value)) {
+            return value.map((cat, index) => {
+                return (
+                    <div key={index} className="mb-1 last:mb-0">
+                        {cat}
+                    </div>
+                );
+            });
+        }
+
+        // 3. Nếu là Object (Ví dụ: Best Sellers Rank) -> Render danh sách nhỏ
+        if (typeof value === "object") {
+            return (
+                <ul className="mt-1 space-y-1">
+                    {Object.entries(value).map(([subKey, subValue]) => (
+                        <li
+                            key={subKey}
+                            className="flex justify-between text-xs border-b border-gray-100 last:border-0 pb-1 last:pb-0"
+                        >
+                            <span className="text-gray-500 w-2/3 pr-2">
+                                {subKey}
+                            </span>
+                            <span className="text-primary-600 font-bold w-1/3 text-right">
+                                {/* Thêm dấu # nếu là số hạng (Rank) cho đẹp */}
+                                {typeof subValue === "number"
+                                    ? `#${subValue.toLocaleString()}`
+                                    : subValue}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            );
+        }
+
+        // 4. Các trường hợp còn lại (String, Number)
+        return String(value);
+    };
+
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 animate-fade-in">
             {/* --- CỘT TRÁI: NỘI DUNG TEXT & TÍNH NĂNG (Chiếm 2/3) --- */}
@@ -91,47 +134,37 @@ const ProductInfo = ({ product }) => {
 
                     {product.details ? (
                         <div className="space-y-0 text-sm">
-                            {/* Duyệt qua Object details để tạo bảng */}
                             {Object.entries(product.details).map(
                                 ([key, value], idx) => (
                                     <div
-                                        key={key}
-                                        className={`flex justify-between py-3 border-b border-gray-200 ${
+                                        key={idx}
+                                        // Thêm items-start để căn lề trên nếu nội dung bên phải dài (như cái Rank)
+                                        className={`flex justify-between items-start py-3 border-b border-gray-200 ${
                                             idx === 0 ? "pt-0" : ""
                                         } last:border-0`}
                                     >
-                                        <span className="text-gray-500 font-medium w-1/3 pr-2 break-words">
+                                        {/* Cột Tên (Key) */}
+                                        <span className="text-gray-500 font-medium w-1/3 pr-2 break-words mt-0.5">
                                             {key}
                                         </span>
-                                        <span className="text-gray-900 w-2/3 text-right font-medium break-words pl-2">
-                                            {value}
-                                        </span>
+
+                                        {/* Cột Giá trị (Value) - Gọi hàm renderDetailValue */}
+                                        <div className="text-gray-900 w-2/3 text-right font-medium break-words pl-2">
+                                            {renderDetailValue(value)}
+                                        </div>
                                     </div>
                                 )
                             )}
 
-                            {/* Thêm Category vào bảng thông số */}
-                            <div className="flex justify-between py-3 border-t border-gray-200 mt-2 pt-4">
-                                <span className="text-gray-500 font-medium">
-                                    Danh mục
+                            {/* Danh mục */}
+                            <div className="flex justify-between items-start py-3 border-t border-gray-200 mt-2 pt-4">
+                                <span className="text-gray-500 font-medium w-1/3 mt-0.5">
+                                    Phân loại
                                 </span>
-                                <span className="text-primary-600 font-bold">
-                                    {product.categories?.length > 0
-                                        ? product.categories.map(
-                                              (cat, index) => {
-                                                  return (
-                                                      <div
-                                                          key={index}
-                                                          className="mb-1 last:mb-0"
-                                                      >
-                                                          {cat}
-                                                      </div>
-                                                  );
-                                              }
-                                          )
-                                        : product.main_category?.name ||
-                                          "Sản phẩm"}
-                                </span>
+                                <div className="text-gray-900 w-2/3 text-right font-medium">
+                                    {/* Dùng hàm renderDetailValue luôn cho nhất quán */}
+                                    {renderDetailValue(product.categories)}
+                                </div>
                             </div>
                         </div>
                     ) : (

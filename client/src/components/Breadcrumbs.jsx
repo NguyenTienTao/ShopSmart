@@ -46,7 +46,7 @@ const Breadcrumbs = () => {
     return (
         <div className="bg-gray-100 py-3 border-b border-gray-200">
             <div className="container mx-auto px-4">
-                <nav className="flex items-center text-sm text-gray-500">
+                <nav className="flex items-center text-sm text-gray-500 whitespace-nowrap overflow-hidden">
                     <Link
                         to="/"
                         className="flex items-center hover:text-primary-600 transition-colors"
@@ -88,13 +88,13 @@ const Breadcrumbs = () => {
                             <React.Fragment key={to}>
                                 <FaChevronRight className="mx-2 text-xs text-gray-400" />
                                 {isLast ? (
-                                    <span className="font-semibold text-gray-700 capitalize">
+                                    <span className="font-semibold text-gray-700 capitalize truncate min-w-0">
                                         {displayName}
                                     </span>
                                 ) : (
                                     <Link
                                         to={to}
-                                        className="hover:text-primary-600 transition-colors capitalize"
+                                        className="hover:text-primary-600 transition-colors capitalize flex-shrink-0"
                                     >
                                         {displayName}
                                     </Link>
