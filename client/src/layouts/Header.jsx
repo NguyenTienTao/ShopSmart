@@ -14,6 +14,7 @@ import {
 import { toast } from "react-hot-toast";
 import CartBadge from "../components/CartBadge";
 import Logo from "../components/Logo";
+import NotificationBell from "../components/NotificationBell";
 
 const Header = () => {
     const { user, profile } = useSelector((state) => state.auth);
@@ -93,6 +94,13 @@ const Header = () => {
                                 >
                                     <FaRegHeart size={20} />
                                 </Link>
+
+                                {/* Thông báo */}
+                                {user && (
+                                    <div className="relative group transition-colors">
+                                        <NotificationBell />
+                                    </div>
+                                )}
 
                                 {/* Giỏ hàng */}
                                 <div className="mr-2">

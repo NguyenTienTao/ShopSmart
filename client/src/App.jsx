@@ -13,13 +13,13 @@ import CategoryPage from "./pages/CategoryPage";
 import ProductDetail from "./pages/ProductDetail";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import WishlistPage from "./pages/WishlistPage";
+import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
 import { getUserProfile } from "./helpers/authHelpers";
-
-const CartPage = () => (
-    <div className="text-2xl font-bold text-gray-700">
-        Giỏ hàng của bạn (Trống)
-    </div>
-);
+import OrderSuccessPage from "./pages/OrderSuccessPage";
+import MyOrdersPage from "./pages/MyOrdersPage";
+import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -76,7 +76,17 @@ function App() {
                     <Route path="categories" element={<CategoryPage />} />
                     <Route path="cart" element={<CartPage />} />
                     <Route path="product/:id" element={<ProductDetail />} />
-                    {/* Thêm các route khác vào đây: /product/:id, /checkout... */}
+                    <Route path="wishlist" element={<WishlistPage />} />
+                    <Route path="cart/checkout" element={<CheckoutPage />} />
+                    <Route
+                        path="/order-success"
+                        element={<OrderSuccessPage />}
+                    />
+                    <Route path="my-orders" element={<MyOrdersPage />} />
+                    <Route
+                        path="notifications"
+                        element={<NotificationsPage />}
+                    />
                 </Route>
 
                 {/* Route Phụ: Không có Header/Footer (như Login) */}

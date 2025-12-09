@@ -13,6 +13,7 @@ import AdminPage from "./pages/Admin/AdminPage.jsx";
 import ProductsPage from "./pages/Product/ProductsPage.jsx";
 import OrdersPage from "./pages/Order/OrdersPage.jsx";
 import DashboardPage from "./pages/Dashboard/DashboardPage.jsx";
+import NotificationsPage from "./pages/Notifications/NotificationsPage.jsx";
 
 function App() {
     const dispatch = useDispatch();
@@ -75,6 +76,10 @@ function App() {
                         <Route path="categories" element={<CategoryPage />} />
                         <Route path="orders" element={<OrdersPage />} />
                         <Route path="admins" element={<AdminPage />} />
+                        <Route
+                            path="notifications"
+                            element={<NotificationsPage />}
+                        />
                     </Route>
                 </Route>
 

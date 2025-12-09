@@ -48,7 +48,6 @@ const CartBadge = () => {
                     event: "*", // Nghe tất cả: INSERT, UPDATE, DELETE
                     schema: "public",
                     table: "cart_items",
-                    filter: `user_id=eq.${user.id}`, // Chỉ nghe giỏ hàng CỦA MÌNH
                 },
                 (payload) => {
                     console.log("Giỏ hàng thay đổi:", payload);

@@ -31,6 +31,7 @@ import { useDispatch } from "react-redux";
 import { setLogout } from "../store/authSlice.js"; // Import action logout
 import Logo from "../components/Logo.jsx";
 import ProfileModal from "../components/ProfileModal.jsx";
+import NotificationBell from "../components/NotificationBell.jsx";
 
 const { Header, Sider, Content } = Layout;
 
@@ -66,7 +67,7 @@ const MainLayout = () => {
             label: "Danh mục",
         },
         {
-            key: "/orders",
+            key: "/my-orders",
             icon: <FaClipboardList />,
             label: "Đơn hàng",
         },
@@ -163,8 +164,11 @@ const MainLayout = () => {
                                     marginRight: 24,
                                     display: "flex",
                                     alignItems: "center",
+                                    gap: "15px",
                                 }}
                             >
+                                <NotificationBell />
+
                                 {/* Dropdown bọc lấy Avatar */}
                                 <Dropdown
                                     menu={{ items: userMenuItems }}

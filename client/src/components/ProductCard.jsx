@@ -5,7 +5,7 @@ import { formatCurrency } from "../helpers/formatters"; // Nhớ file này mình
 import AddToCartButton from "./AddToCartButton"; // Tái sử dụng nút thêm giỏ
 import FavoriteButton from "./FavoriteButton"; // Tái sử dụng nút tim
 
-const ProductCard = ({ product, badge }) => {
+const ProductCard = ({ product, badge, onRemoveFromWishlist }) => {
     return (
         <div className="group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 relative flex flex-col h-full">
             {/* 1. Hình ảnh & Badge */}
@@ -27,7 +27,10 @@ const ProductCard = ({ product, badge }) => {
 
                 {/* Nút Yêu thích (Hiện khi hover hoặc luôn hiện trên mobile) */}
                 <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <FavoriteButton product={product} />
+                    <FavoriteButton
+                        product={product}
+                        onToggle={onRemoveFromWishlist}
+                    />
                 </div>
 
                 {/* Nhãn (Mới / Hot / Sale) */}

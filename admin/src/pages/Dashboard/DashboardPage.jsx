@@ -27,6 +27,8 @@ import {
 } from "recharts";
 
 const DashboardPage = () => {
+    const EXCHANGE_RATE = 25420;
+
     const [loading, setLoading] = useState(true);
 
     // State dữ liệu
@@ -263,14 +265,17 @@ const DashboardPage = () => {
                 </Col>
             </Row>
 
-            {/* 2. BIỂU ĐỒ & BEST SELLER */}
-            <Row gutter={[24, 24]}>
-                {/* Biểu đồ doanh thu (Chiếm 16/24 phần) */}
-                <Col xs={24} lg={16}>
+            {/* 2. BIỂU ĐỒ DOANH THU (NẰM RIÊNG 1 HÀNG) */}
+            <Row gutter={[24, 24]} style={{ marginTop: 24 }}>
+                <Col span={24}>
+                    {" "}
+                    {/* span={24} nghĩa là chiếm 100% chiều rộng */}
                     <div className={styles.chartSection}>
                         <h3>Biểu đồ doanh thu (7 ngày qua)</h3>
                         {chartData.length > 0 ? (
-                            <div style={{ width: "100%", height: 320 }}>
+                            <div style={{ width: "100%", height: 350 }}>
+                                {" "}
+                                {/* Tăng height lên 350 cho đẹp */}
                                 <ResponsiveContainer>
                                     <AreaChart data={chartData}>
                                         <defs>
@@ -297,8 +302,26 @@ const DashboardPage = () => {
                                             strokeDasharray="3 3"
                                             vertical={false}
                                         />
-                                        <XAxis dataKey="name" />
-                                        <YAxis />
+                                        {/* XAxis: Thêm tickMargin để chữ không sát biểu đồ quá */}
+                                        <XAxis dataKey="name" tickMargin={10} />
+                                        <YAxis
+                                            tickFormatter={(value) => {
+                                                console.log(value);
+
+                                                const vndValue =
+                                                    value * EXCHANGE_RATE;
+
+                                                return new Intl.NumberFormat(
+                                                    "en-US",
+                                                    {
+                                                        notation: "compact",
+                                                        compactDisplay: "short",
+                                                        maximumFractionDigits: 1,
+                                                    }
+                                                ).format(vndValue);
+                                            }}
+                                            width={80}
+                                        />
                                         <Tooltip
                                             formatter={(value) =>
                                                 formatCurrency(value)
@@ -315,73 +338,70 @@ const DashboardPage = () => {
                                 </ResponsiveContainer>
                             </div>
                         ) : (
-                            <Empty
-                                description="Chưa có dữ liệu doanh thu"
-                                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                            />
-                        )}
-                    </div>
-                </Col>
-
-                {/* Top Sản Phẩm (Chiếm 8/24 phần) */}
-                <Col xs={24} lg={8}>
-                    <div className={styles.chartSection}>
-                        <h3>Sản phẩm bán chạy</h3>
-                        {bestSellers.length > 0 ? (
-                            <div className={styles.bestSellerList}>
-                                {bestSellers.map((item, index) => (
-                                    <div
-                                        key={item.product_id}
-                                        className={styles.item}
-                                    >
-                                        <div className={styles.info}>
-                                            <div
-                                                className={`${styles.rank} ${
-                                                    index === 0
-                                                        ? styles.top1
-                                                        : index === 1
-                                                        ? styles.top2
-                                                        : index === 2
-                                                        ? styles.top3
-                                                        : ""
-                                                }`}
-                                            >
-                                                {index + 1}
-                                            </div>
-                                            <img
-                                                src={
-                                                    item.image_url ||
-                                                    "https://placehold.co/50"
-                                                }
-                                                alt=""
-                                            />
-                                            <div
-                                                className={styles.name}
-                                                title={item.title}
-                                            >
-                                                {item.title}
-                                            </div>
-                                        </div>
-                                        <div className={styles.sales}>
-                                            <span className={styles.count}>
-                                                {item.total_sold}
-                                            </span>
-                                            <span className={styles.label}>
-                                                đã bán
-                                            </span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <Empty
-                                description="Chưa có số liệu"
-                                image={Empty.PRESENTED_IMAGE_SIMPLE}
-                            />
+                            <Empty description="Chưa có dữ liệu" />
                         )}
                     </div>
                 </Col>
             </Row>
+
+            {/* Top Sản Phẩm (Chiếm 8/24 phần) */}
+            <Col xs={24} lg={24}>
+                <div className={styles.chartSection}>
+                    <h3>Sản phẩm bán chạy</h3>
+                    {bestSellers.length > 0 ? (
+                        <div className={styles.bestSellerList}>
+                            {bestSellers.map((item, index) => (
+                                <div
+                                    key={item.product_id}
+                                    className={styles.item}
+                                >
+                                    <div className={styles.info}>
+                                        <div
+                                            className={`${styles.rank} ${
+                                                index === 0
+                                                    ? styles.top1
+                                                    : index === 1
+                                                    ? styles.top2
+                                                    : index === 2
+                                                    ? styles.top3
+                                                    : ""
+                                            }`}
+                                        >
+                                            {index + 1}
+                                        </div>
+                                        <img
+                                            src={
+                                                item.image_url ||
+                                                "https://placehold.co/50"
+                                            }
+                                            alt=""
+                                        />
+                                        <div
+                                            className={styles.name}
+                                            title={item.title}
+                                        >
+                                            {item.title}
+                                        </div>
+                                    </div>
+                                    <div className={styles.sales}>
+                                        <span className={styles.count}>
+                                            {item.total_sold}
+                                        </span>
+                                        <span className={styles.label}>
+                                            đã bán
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <Empty
+                            description="Chưa có số liệu"
+                            image={Empty.PRESENTED_IMAGE_SIMPLE}
+                        />
+                    )}
+                </div>
+            </Col>
 
             {/* 3. ĐƠN HÀNG MỚI */}
             <Card
