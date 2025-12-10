@@ -133,12 +133,18 @@ const Header = () => {
                                         <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
                                             <Link
                                                 to="/profile"
+                                                onClick={() =>
+                                                    setShowUserMenu(false)
+                                                }
                                                 className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-primary-600"
                                             >
                                                 <FaUser /> Hồ sơ cá nhân
                                             </Link>
                                             <Link
                                                 to="/my-orders"
+                                                onClick={() =>
+                                                    setShowUserMenu(false)
+                                                }
                                                 className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-primary-600"
                                             >
                                                 <FaHistory /> Lịch sử đơn hàng

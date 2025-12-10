@@ -35,6 +35,7 @@ const Breadcrumbs = () => {
         "/register",
         "/forgot-password",
         "/update-password",
+        "/profile",
     ];
 
     if (hiddenRoutes.includes(location.pathname)) {

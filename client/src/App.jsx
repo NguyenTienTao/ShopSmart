@@ -1,9 +1,14 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Toaster } from "react-hot-toast"; // Thông báo đẹp
+import { useDispatch, useSelector } from "react-redux";
+import { Toaster } from "react-hot-toast";
 import { supabase } from "./services/supabaseClient";
-import { setSession, setLogout, setLoading } from "./store/authSlice";
+import {
+    setSession,
+    setLogout,
+    setLoading,
+    updateProfile,
+} from "./store/authSlice";
 
 // Import Layouts
 import MainLayout from "./layouts/MainLayout";
@@ -20,9 +25,11 @@ import { getUserProfile } from "./helpers/authHelpers";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import NotificationsPage from "./pages/NotificationsPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
     const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
 
     // Logic Auth giữ nguyên như cũ để đồng bộ session
     useEffect(() => {
@@ -63,6 +70,34 @@ function App() {
         return () => subscription.unsubscribe();
     }, [dispatch]);
 
+    useEffect(() => {
+        if (!user) return;
+
+        // Tạo kênh lắng nghe bảng 'profiles'
+        const channel = supabase
+            .channel("public:profiles")
+            .on(
+                "postgres_changes",
+                {
+                    event: "UPDATE", // Chỉ nghe sự kiện Sửa
+                    schema: "public",
+                    table: "profiles",
+                    filter: `id=eq.${user.id}`, // Quan trọng: Chỉ nghe dòng của chính mình
+                },
+                (payload) => {
+                    console.log("⚡ Profile thay đổi:", payload.new);
+
+                    // Cập nhật Redux ngay lập tức
+                    dispatch(updateProfile(payload.new));
+                }
+            )
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel);
+        };
+    }, [user, dispatch]);
+
     return (
         <BrowserRouter>
             {/* Component thông báo toàn cục */}
@@ -87,6 +122,7 @@ function App() {
                         path="notifications"
                         element={<NotificationsPage />}
                     />
+                    <Route path="profile" element={<ProfilePage />} />
                 </Route>
 
                 {/* Route Phụ: Không có Header/Footer (như Login) */}

@@ -52,7 +52,7 @@ const OrderDetailModal = ({ isOpen, onClose, order }) => {
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-full transition"
+                        className="p-2 text-gray-400 bg-transparent hover:text-red-500 hover:bg-red-50 rounded-full transition"
                     >
                         <FaTimes size={20} />
                     </button>
