@@ -1,8 +1,8 @@
-import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header"; // Import Header bạn đã có
 import Footer from "./Footer"; // Import Footer vừa tạo
 import Breadcrumbs from "../components/Breadcrumbs";
+import ChatBot from "../components/ChatBot";
 
 const MainLayout = () => {
     return (
@@ -19,6 +19,8 @@ const MainLayout = () => {
 
             {/* Footer luôn ở dưới cùng */}
             <Footer />
+
+            <ChatBot />
         </div>
     );
 };
