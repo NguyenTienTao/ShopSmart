@@ -48,7 +48,7 @@ const Header = () => {
         }`;
 
     return (
-        <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-100">
+        <header className="top-0 z-50 bg-white shadow-sm border-b border-gray-100">
             <div className="container mx-auto px-4 pb-5 pt-5">
                 {/* --- HÀNG 1: LOGO - MENU - AUTH --- */}
                 <div className="flex items-center justify-between mb-4">
