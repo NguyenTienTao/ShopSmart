@@ -31,6 +31,8 @@ import { formatCurrency } from "../../helpers/formatters"; // Helper format ti�
 const { Option } = Select;
 const { TextArea } = Input;
 
+const API_URL = "http://localhost:3000/api/products"; // Link server của bạn
+
 const ProductsPage = () => {
     // --- STATE QUẢN LÝ DỮ LIỆU ---
     const [products, setProducts] = useState([]);
@@ -165,21 +167,29 @@ const ProductsPage = () => {
                 // categories: [categories.find(c => c.id === values.category_id)?.name], // Tùy chọn: lưu tên category vào mảng jsonb nếu schema yêu cầu
             };
 
+            let response;
+
             if (editingProduct) {
-                // UPDATE
-                const { error } = await supabase
-                    .from("products")
-                    .update(payload)
-                    .eq("id", editingProduct.id);
-                if (error) throw error;
-                message.success("Cập nhật sản phẩm thành công!");
+                // Update (PUT)
+                response = await fetch(`${API_URL}/${editingProduct.id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
             } else {
-                // INSERT
-                const { error } = await supabase
-                    .from("products")
-                    .insert([payload]);
-                if (error) throw error;
-                message.success("Thêm sản phẩm thành công!");
+                // Create (POST)
+                response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+            }
+
+            // --- BƯỚC 4: XỬ LÝ KẾT QUẢ ---
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || "Lỗi khi gọi Server");
             }
 
             setIsModalOpen(false);
@@ -194,12 +204,19 @@ const ProductsPage = () => {
     // 5. XỬ LÝ XÓA
     const handleDelete = async (id) => {
         try {
-            const { error } = await supabase
-                .from("products")
-                .delete()
-                .eq("id", id);
-            if (error) throw error;
-            message.success("Đã xóa sản phẩm");
+            const response = await fetch(`${API_URL}/${id}`, {
+                method: "DELETE",
+            });
+
+            const result = await response.json();
+
+            // Kiểm tra lỗi từ server
+            if (!response.ok) {
+                throw new Error(result.error || "Không thể xóa sản phẩm");
+            }
+
+            // --- THÀNH CÔNG ---
+            message.success("Đã xóa sản phẩm thành công!");
             fetchData();
         } catch (error) {
             message.error("Lỗi xóa: " + error.message);

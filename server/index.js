@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { handleChat } = require("./api/chatbot/chatController"); // Import controller
+const productRoutes = require("./api/products/productRoutes"); // Import product routes
 
 dotenv.config();
 const app = express();
@@ -14,6 +15,9 @@ app.use(express.json());
 
 // 1. Route Chatbot
 app.post("/api/chat", handleChat);
+
+// 2. Route Products
+app.use("/api/products", productRoutes);
 
 // 2. Route Recommend (Sau này sẽ thêm vào đây)
 // const { getRecommendations } = require('./api/recommend/recommendController');
