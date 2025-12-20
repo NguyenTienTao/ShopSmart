@@ -31,7 +31,7 @@ import { formatCurrency } from "../../helpers/formatters"; // Helper format ti�
 const { Option } = Select;
 const { TextArea } = Input;
 
-const API_URL = "http://localhost:3000/api/products"; // Link server của bạn
+const API_URL = "http://localhost:5000/api/products"; // Link server của bạn
 
 const ProductsPage = () => {
     // --- STATE QUẢN LÝ DỮ LIỆU ---
