@@ -31,7 +31,7 @@ import { formatCurrency } from "../../helpers/formatters"; // Helper format ti�
 const { Option } = Select;
 const { TextArea } = Input;
 
-const API_URL = "http://localhost:5000/api/products"; // Link server của bạn
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api"; // Link server của bạn
 
 const ProductsPage = () => {
     // --- STATE QUẢN LÝ DỮ LIỆU ---
@@ -171,14 +171,17 @@ const ProductsPage = () => {
 
             if (editingProduct) {
                 // Update (PUT)
-                response = await fetch(`${API_URL}/${editingProduct.id}`, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload),
-                });
+                response = await fetch(
+                    `${API_URL}/products/${editingProduct.id}`,
+                    {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload),
+                    },
+                );
             } else {
                 // Create (POST)
-                response = await fetch(API_URL, {
+                response = await fetch(`${API_URL}/products`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload),
@@ -204,7 +207,7 @@ const ProductsPage = () => {
     // 5. XỬ LÝ XÓA
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
+            const response = await fetch(`${API_URL}/products/${id}`, {
                 method: "DELETE",
             });
 
@@ -253,7 +256,7 @@ const ProductsPage = () => {
                                 originalObject: img, // (Tùy chọn) Lưu lại object gốc nếu cần dùng sau này
                             };
                         })
-                        .filter((item) => item.url)
+                        .filter((item) => item.url),
                 ); // Lọc bỏ những cái không có url
             } else {
                 setFileList([]);
@@ -280,7 +283,7 @@ const ProductsPage = () => {
                 if (Array.isArray(record.images) && record.images.length > 0) {
                     // 1. Tìm object có variant = 'MAIN'
                     const mainItem = record.images.find(
-                        (img) => img?.variant === "MAIN"
+                        (img) => img?.variant === "MAIN",
                     );
 
                     if (mainItem && mainItem.large) {
@@ -494,7 +497,7 @@ const ProductsPage = () => {
                                 formatter={(value) =>
                                     `${value}`.replace(
                                         /\B(?=(\d{3})+(?!\d))/g,
-                                        ","
+                                        ",",
                                     )
                                 }
                                 parser={(value) =>

@@ -1,6 +1,6 @@
 import { FaPaperPlane } from "react-icons/fa";
 
-const Newsletter = () => {
+const NewsLetter = () => {
     return (
         <section className="py-20 bg-primary-600 text-white relative overflow-hidden">
             {/* Họa tiết nền (trang trí) */}
@@ -49,4 +49,4 @@ const Newsletter = () => {
     );
 };
 
-export default Newsletter;
+export default NewsLetter;

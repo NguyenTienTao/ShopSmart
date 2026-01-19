@@ -3,7 +3,7 @@ import HeroSection from "../components/home/HeroSection";
 import ServiceFeatures from "../components/home/ServiceFeatures";
 import NewArrivals from "../components/home/NewArrivals";
 import BestSellers from "../components/home/BestSellers";
-import Newsletter from "../components/home/NewsLetter";
+import NewsLetter from "../components/home/NewsLetter";
 
 const HomePage = () => {
     useEffect(() => {
@@ -16,7 +16,7 @@ const HomePage = () => {
             <ServiceFeatures />
             <NewArrivals />
             <BestSellers />
-            <Newsletter />
+            <NewsLetter />
         </div>
     );
 };

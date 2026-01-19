@@ -8,6 +8,8 @@ import {
 } from "react-icons/fa";
 import ReactMarkdown from "react-markdown"; // Để render text đẹp (in đậm, xuống dòng)
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const ChatBot = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
@@ -42,7 +44,7 @@ const ChatBot = () => {
 
         try {
             // 2. Gọi API Server (Localhost:5000)
-            const response = await fetch("http://localhost:5000/api/chat", {
+            const response = await fetch(`${API_URL}/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: userMessage }),
