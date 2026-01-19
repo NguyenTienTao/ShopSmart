@@ -57,7 +57,7 @@ const NotificationBell = () => {
                     });
                     setNotifications((prev) => [payload.new, ...prev]);
                     setUnreadCount((prev) => prev + 1);
-                }
+                },
             )
             .subscribe();
 
@@ -86,8 +86,8 @@ const NotificationBell = () => {
                 .eq("id", noti.id);
             setNotifications((prev) =>
                 prev.map((n) =>
-                    n.id === noti.id ? { ...n, is_read: true } : n
-                )
+                    n.id === noti.id ? { ...n, is_read: true } : n,
+                ),
             );
             setUnreadCount((prev) => Math.max(0, prev - 1));
         }

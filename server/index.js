@@ -24,6 +24,10 @@ app.use("/api/products", productRoutes);
 // app.get('/api/recommend', getRecommendations);
 
 // --- START SERVER ---
-app.listen(port, () => {
-    console.log(`🚀 Server đang chạy tại http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== "production") {
+    app.listen(port, () => {
+        console.log(`🚀 Server đang chạy tại cổng ${port}`);
+    });
+}
+
+module.exports = app;

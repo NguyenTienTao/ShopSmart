@@ -28,7 +28,7 @@ function App() {
                     const profile = await getUserProfile(session.user.id);
 
                     dispatch(
-                        setSession({ session, profile, role: profile.role })
+                        setSession({ session, profile, role: profile.role }),
                     );
                 } catch (err) {
                     dispatch(setLogout());
@@ -74,7 +74,7 @@ function App() {
                         <Route path="dashboard" element={<DashboardPage />} />
                         <Route path="products" element={<ProductsPage />} />
                         <Route path="categories" element={<CategoryPage />} />
-                        <Route path="my-orders" element={<OrdersPage />} />
+                        <Route path="orders" element={<OrdersPage />} />
                         <Route path="admins" element={<AdminPage />} />
                         <Route
                             path="notifications"
