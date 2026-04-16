@@ -65,7 +65,7 @@ def main():
         df_train=df_train,
         adj_matrix=adj_matrix,
         num_items=num_items,
-        train_dict=train_dict,  # Truyền từ điển Maskingl
+        train_dict=train_dict,  # Truyền từ điển Masking
         test_dict=test_dict,    # Truyền từ điển Test
         epochs=250,
         batch_size=2048,
