@@ -9,6 +9,7 @@ import {
     setLoading,
     updateProfile,
 } from "./store/authSlice";
+import { getUserProfile } from "./helpers/authHelpers";
 
 // Import Layouts
 import MainLayout from "./layouts/MainLayout";
@@ -21,11 +22,11 @@ import RegisterPage from "./pages/RegisterPage";
 import WishlistPage from "./pages/WishlistPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
-import { getUserProfile } from "./helpers/authHelpers";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import MyOrdersPage from "./pages/MyOrdersPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import ProfilePage from "./pages/ProfilePage";
+import RecommendPage from "./pages/RecommendPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function App() {
                     const profile = await getUserProfile(session.user.id);
 
                     dispatch(
-                        setSession({ session, profile, role: profile.role })
+                        setSession({ session, profile, role: profile.role }),
                     );
                 } catch (err) {
                     dispatch(setLogout());
@@ -89,7 +90,7 @@ function App() {
 
                     // Cập nhật Redux ngay lập tức
                     dispatch(updateProfile(payload.new));
-                }
+                },
             )
             .subscribe();
 
@@ -123,6 +124,7 @@ function App() {
                         element={<NotificationsPage />}
                     />
                     <Route path="profile" element={<ProfilePage />} />
+                    <Route path="recommend" element={<RecommendPage />} />
                 </Route>
 
                 {/* Route Phụ: Không có Header/Footer (như Login) */}

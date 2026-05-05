@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { FaHeart, FaRegHeart, FaSpinner } from "react-icons/fa";
 import { supabase } from "../services/supabaseClient";
 import { toast } from "react-hot-toast";
+import { trackInteraction } from "../services/interactionService";
 
 const FavoriteButton = ({ product }) => {
     const { user } = useSelector((state) => state.auth);
@@ -78,6 +79,7 @@ const FavoriteButton = ({ product }) => {
             setIsLiked(previousState);
             toast.error("Lỗi: " + error.message);
         } finally {
+            trackInteraction(user.id, product.parent_asin, "like");
             setLoading(false);
         }
     };

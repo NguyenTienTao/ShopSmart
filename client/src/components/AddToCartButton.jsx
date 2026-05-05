@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../services/supabaseClient";
 import { FaShoppingCart, FaSpinner } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import { trackInteraction } from "../services/interactionService";
 
 const AddToCartButton = ({ product, quantity = 1, iconOnly = false }) => {
     const { user } = useSelector((state) => state.auth);
@@ -76,6 +77,7 @@ const AddToCartButton = ({ product, quantity = 1, iconOnly = false }) => {
             console.error(err);
             toast.error("Lỗi thêm giỏ hàng: " + err.message);
         } finally {
+            trackInteraction(user.id, product.parent_asin, "cart");
             setLoading(false);
         }
     };

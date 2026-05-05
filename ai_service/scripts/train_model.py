@@ -47,15 +47,38 @@ def main():
     print("🤖 BƯỚC 5: KHỞI TẠO MÔ HÌNH LIGHTGCN ĐA PHƯƠNG THỨC")
     # Ở đồ án thực tế, bạn sẽ load 2 ma trận đặc trưng từ Supabase hoặc file Numpy offline
     # Tạm thời dùng vector ngẫu nhiên để test luồng chạy không bị lỗi
-    dummy_text_feats = torch.randn(num_items, 512) 
-    dummy_image_feats = torch.randn(num_items, 512)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    # --- ĐOẠN LẮP GHÉP VECTOR AN TOÀN TUYỆT ĐỐI ---
+    print("Đang nạp Dictionary từ ổ cứng và ráp vào Ma trận...")
+    text_dict = torch.load('data/text_dict.pt')
+    image_dict = torch.load('data/image_dict.pt')
+    
+    feat_dim = 512
+    # 1. Tạo ma trận trống chứa toàn số 0. Kích thước [25528, 512]
+    real_text_feats = torch.zeros((num_items, feat_dim))
+    real_image_feats = torch.zeros((num_items, feat_dim))
+    
+    # 2. Vòng lặp "Ráp ngọc vào kiếm"
+    # all_items.cat.categories chứa toàn bộ ASIN theo đúng thứ tự 0, 1, 2...
+    for idx, asin in enumerate(all_items.cat.categories):
+        if asin in text_dict:
+            real_text_feats[idx] = text_dict[asin]
+        if asin in image_dict:
+            real_image_feats[idx] = image_dict[asin]
+            
+    # 3. Đẩy nguyên khối ma trận đã ráp xong lên GPU
+    text_feats = real_text_feats.to(device)
+    image_feats = real_image_feats.to(device)
+    print("✅ Đã ráp xong Vector! Bắt đầu khởi tạo Model...")
+    # ---------------------------------------------
     
     model = MultimodalLightGCN(
         num_users=num_users, 
         num_items=num_items, 
         embedding_dim=64, 
-        text_feats=dummy_text_feats, 
-        image_feats=dummy_image_feats
+        text_feats=text_feats, 
+        image_feats=image_feats
     )
 
     print("🔥 BƯỚC 6: BẮT ĐẦU KHÂU HUẤN LUYỆN (TRAINING)")
@@ -69,7 +92,7 @@ def main():
         test_dict=test_dict,    # Truyền từ điển Test
         epochs=250,
         batch_size=2048,
-        lr=0.001
+        lr=0.0005
     )
 
 if __name__ == "__main__":

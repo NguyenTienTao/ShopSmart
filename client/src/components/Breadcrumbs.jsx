@@ -14,6 +14,8 @@ const routeNameMap = {
     checkout: "Thanh toán",
     search: "Tìm kiếm",
     categories: "Danh mục",
+    recommend: "Gợi ý",
+    notifications: "Thông báo",
 };
 
 const Breadcrumbs = () => {

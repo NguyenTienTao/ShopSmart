@@ -50,7 +50,7 @@ def train_lightgcn(model, df_train, adj_matrix, num_items, train_dict, test_dict
     optimizer = optim.Adam(model.parameters(), lr=lr)
     
     # --- CHUẨN BỊ FILE CSV LƯU LOG ---
-    log_file = "data/baseline2_log.csv"
+    log_file = "data/multimodal_learnable_weights(2)_log.csv"
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
     with open(log_file, mode='w', newline='') as f:
         writer = csv.writer(f)
@@ -81,7 +81,7 @@ def train_lightgcn(model, df_train, adj_matrix, num_items, train_dict, test_dict
                 users_emb_final, items_emb_final
             )
             
-            loss = bpr_loss + (1e-4 * reg_loss)
+            loss = bpr_loss + (1e-3 * reg_loss)
             loss.backward()
             optimizer.step()
             
@@ -106,7 +106,7 @@ def train_lightgcn(model, df_train, adj_matrix, num_items, train_dict, test_dict
                 best_ndcg = ndcg
                 patience_counter = 0 # Điểm tăng -> Xóa bộ đếm làm lại từ đầu
                 # Lưu file weights của mô hình ngon nhất lại
-                torch.save(model.state_dict(), "data/best_baseline2.pth") 
+                torch.save(model.state_dict(), "data/best_multimodal_dummy.pth") 
             else:
                 patience_counter += 5 # Điểm không tăng -> Cộng dồn bộ đếm
                 

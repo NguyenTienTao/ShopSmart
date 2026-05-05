@@ -70,6 +70,14 @@ const Header = () => {
                             <NavLink to="/categories" className={navLinkClass}>
                                 Danh mục
                             </NavLink>
+                            {user && (
+                                <NavLink
+                                    to="/recommend"
+                                    className={navLinkClass}
+                                >
+                                    Gợi ý
+                                </NavLink>
+                            )}
                             {/* History chỉ hiện khi đã đăng nhập (hoặc luôn hiện tùy bạn) */}
                             {user && (
                                 <NavLink

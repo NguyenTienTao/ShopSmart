@@ -16,9 +16,12 @@ import Loading from "../components/Loading";
 import ProductInfo from "../components/product/ProductInfo";
 import SimilarProducts from "../components/product/SimilarProducts";
 import ReviewSection from "../components/product/ReviewSection";
+import { trackInteraction } from "../services/interactionService";
+import { useSelector } from "react-redux";
 
 const ProductDetail = () => {
     const { id } = useParams();
+    const { user } = useSelector((state) => state.auth);
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeImage, setActiveImage] = useState("");
@@ -44,10 +47,14 @@ const ProductDetail = () => {
             } else {
                 document.title = data.title;
                 setProduct(data);
+                trackInteraction(user.id, data.parent_asin, "view");
+
                 if (data.images && data.images.length > 0) {
                     const firstImg = data.images[0];
                     setActiveImage(
-                        typeof firstImg === "object" ? firstImg.large : firstImg
+                        typeof firstImg === "object"
+                            ? firstImg.large
+                            : firstImg,
                     );
                 }
             }
@@ -72,7 +79,7 @@ const ProductDetail = () => {
                 stars.push(<FaStar key={i} className="text-yellow-400" />);
             else if (i === Math.ceil(rating) && !Number.isInteger(rating))
                 stars.push(
-                    <FaStarHalfAlt key={i} className="text-yellow-400" />
+                    <FaStarHalfAlt key={i} className="text-yellow-400" />,
                 );
             else stars.push(<FaRegStar key={i} className="text-gray-300" />);
         }
@@ -204,7 +211,7 @@ const ProductDetail = () => {
                                             </div>
                                             <p className="text-xs text-gray-600 leading-relaxed line-clamp-4">
                                                 {Array.isArray(
-                                                    product.author.about
+                                                    product.author.about,
                                                 )
                                                     ? product.author.about[0]
                                                     : product.author.about}
@@ -247,7 +254,7 @@ const ProductDetail = () => {
                                     <button
                                         onClick={() =>
                                             setQuantity(
-                                                Math.max(1, quantity - 1)
+                                                Math.max(1, quantity - 1),
                                             )
                                         }
                                         className="px-3 py-1 text-gray-600 bg-white hover:bg-gray-100 rounded-l-lg transition"
@@ -265,8 +272,8 @@ const ProductDetail = () => {
                                             setQuantity(
                                                 Math.min(
                                                     product.stock,
-                                                    quantity + 1
-                                                )
+                                                    quantity + 1,
+                                                ),
                                             )
                                         }
                                         className="px-3 py-1 text-gray-600 bg-white hover:bg-gray-100 rounded-r-lg transition"

@@ -17,13 +17,13 @@ const CategoryPage = () => {
                 // Lấy danh mục VÀ đếm số sản phẩm trong đó
                 const { data, error } = await supabase
                     .from("categories")
-                    .select("*, products(count)");
+                    .select("*");
 
                 if (error) throw error;
 
                 // Sắp xếp theo tên A-Z
                 const sortedData = data.sort((a, b) =>
-                    a.name.localeCompare(b.name)
+                    a.name.localeCompare(b.name),
                 );
                 setCategories(sortedData);
             } catch (error) {
@@ -90,10 +90,6 @@ const CategoryPage = () => {
                                 <h3 className="text-xl font-bold text-gray-800 group-hover:text-primary-600 transition-colors">
                                     {cat.name}
                                 </h3>
-                                {/* Số lượng sản phẩm (Badge) */}
-                                <span className="bg-gray-100 text-gray-600 text-xs font-semibold px-2 py-1 rounded-full">
-                                    {cat.products?.[0]?.count || 0} sản phẩm
-                                </span>
                             </div>
 
                             {/* Mô tả (Cắt ngắn nếu dài quá) */}
