@@ -134,4 +134,4 @@ npm run dev
 Sinh viên: Nguyễn Tiến Tạo
 Khoa Khoa học Máy tính — Trường Đại học Công nghệ, ĐHQGHN
 
-Giảng viên hướng dẫn: ThS. Lê Minh Khôi
+Giảng viên hướng dẫn: ThS. Lê Minh Khôi và TS. Đỗ Thành Công
